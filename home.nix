@@ -28,11 +28,12 @@
      enableBashIntegration = true;
      enableFishIntegration = true;
   };  
-
-  programs.zoxide = {    
+ 
+  # zoxide
+  programs.zoxide = {
     enable = true;
-     enableBashIntegration = true;
-     enableFishIntegration = true;    
+    enableBashIntegration = true;
+    enableFishIntegration = true;
   };
 
   programs.neovim = {
@@ -47,7 +48,6 @@
       "git s" = "git status";
       "jgc" = "jt-gc.sh";
       "jgs" = "jt-gs.sh";
-      "z" = "zoxide";
     };
   };
 }

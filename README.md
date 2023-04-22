@@ -7,8 +7,15 @@ dotfiles set up by nix
 ```sh
 
 # Install git and nix for your *nix operating system
+sudo apt install git
+sudo install -d -m755 -o $(id -u) -g $(id -g) /nix
+curl -L https://nixos.org/nix/install | sh
+
+# Set up home-manager
+mkdir -p ~/.config
 # Clone repository into `~/.config/home-manager`
-git clone git@github.com:justunsix/dotfiles-nix.git ~/.config/home-manager
+cd ~/.config
+git clone https://github.com/justunsix/dotfiles-nix.git ~/.config/home-manager
 cd ~/.config/home-manager
 # Install the configuration and programs from flake.nix
 nix run . switch
