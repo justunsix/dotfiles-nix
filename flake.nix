@@ -11,6 +11,7 @@
 
   outputs = { nixpkgs, home-manager, ... }: let
     arch = "x86_64-linux";
+  in {
     defaultPackage.${arch} =
       home-manager.defaultPackage.${arch};
 
