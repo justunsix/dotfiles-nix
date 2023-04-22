@@ -48,6 +48,7 @@
       "git s" = "git status";
       "jgc" = "jt-gc.sh";
       "jgs" = "jt-gs.sh";
+      "jgt" = "jt-gt.sh";
     };
   };
 }
