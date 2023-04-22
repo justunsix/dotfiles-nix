@@ -10,7 +10,13 @@
     pkgs.topgrade
     pkgs.curl
     pkgs.htop
+    pkgs.keychain
+    pkgs.firefox
   ];
+
+  #fonts.fontconfig = {
+  # enable = true;
+  #};
 
   programs.bash = {    
     enable = true;    
