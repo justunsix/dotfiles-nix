@@ -11,7 +11,6 @@
     pkgs.curl
     pkgs.htop
     pkgs.keychain
-    pkgs.firefox
   ];
 
   #fonts.fontconfig = {
