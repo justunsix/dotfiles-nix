@@ -7,7 +7,9 @@ dotfiles set up by nix
 ```sh
 
 # Install git and nix for your *nix operating system
+# Assuming Debian based system, install git
 sudo apt install git
+
 sudo install -d -m755 -o $(id -u) -g $(id -g) /nix
 curl -L https://nixos.org/nix/install | sh
 
