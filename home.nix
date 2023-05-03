@@ -45,10 +45,10 @@
   programs.fish = {
     enable = true;
     shellAliases = {
-      "git s" = "git status";
-      "jgc" = "jt-gc.sh";
-      "jgs" = "jt-gs.sh";
-      "jgt" = "jt-gt.sh";
+      "gits"="git status";
+      "jgc"="jt-gc.sh";
+      "jgs"="jt-gs.sh";
+      "jgt"="jt-gt.sh";
     };
   };
 
