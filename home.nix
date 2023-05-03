@@ -19,19 +19,19 @@
 
   programs.bash = {    
     enable = true;    
-    # initExtra = builtins.readFile ./.bashrc;
+    initExtra = builtins.readFile ./.bashrc;
   };
 
   programs.fzf = {   
      enable = true;
-     enableBashIntegration = true;
+     # enableBashIntegration = true;
      enableFishIntegration = true;
   };  
  
   # zoxide
   programs.zoxide = {
     enable = true;
-    enableBashIntegration = true;
+    # enableBashIntegration = true;
     enableFishIntegration = true;
   };
 
