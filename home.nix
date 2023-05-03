@@ -11,6 +11,7 @@
     pkgs.curl
     pkgs.htop
     pkgs.keychain
+    pkgs.stow
   ];
 
   #fonts.fontconfig = {
@@ -50,4 +51,5 @@
       "jgt" = "jt-gt.sh";
     };
   };
+
 }
