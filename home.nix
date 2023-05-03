@@ -11,7 +11,6 @@
     pkgs.curl
     pkgs.htop
     pkgs.keychain
-    pkgs.stow
   ];
 
   #fonts.fontconfig = {
@@ -20,7 +19,7 @@
 
   programs.bash = {    
     enable = true;    
-    initExtra = builtins.readFile ./.bashrc;
+    # initExtra = builtins.readFile ./.bashrc;
   };
 
   programs.fzf = {   
