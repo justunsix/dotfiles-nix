@@ -11,6 +11,7 @@
     pkgs.curl
     pkgs.htop
     pkgs.keychain
+    pkgs.emacs
   ];
 
   #fonts.fontconfig = {
