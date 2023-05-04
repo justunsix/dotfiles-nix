@@ -19,8 +19,13 @@
     pkgs.jetbrains-mono
     # DevOps
     pkgs.emacs
+    ## Emacs package requirements
     pkgs.nodejs
+    pkgs.pandoc
+    pkgs.ripgrep
+    ## Spelling
     pkgs.hunspell
+    pkgs.hunspellDicts.en_CA
     # Browser
     pkgs.firefox
   ];
