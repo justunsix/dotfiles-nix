@@ -15,6 +15,7 @@ If behind a proxy and trying to install nix, try these instructions:
 
 Before running the nix install, set these in your shell. In the same shell, run the nix install script. The curl calls in the nix install script needs to be edited with `curl --proxy "http://proxy:port`
 
+```sh
 git config --global https.proxy https://proxy:port
 git config --global http.proxy http://proxy:port
 
@@ -24,3 +25,4 @@ export http_proxy=proxy:port
 export https_proxy=proxy:port
 export ftp_proxy=proxy:port
 export CURL_NIX_FLAGS=proxy:port
+```
