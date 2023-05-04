@@ -3,6 +3,12 @@
 sudo install -d -m755 -o $(id -u) -g $(id -g) /nix
 curl -L https://nixos.org/nix/install | sh
 
+# Enable nix flakes
+mkdir -p ~/.config/nix
+cat <<EOF >> ~/.config/nix/nix.conf
+experimental-features = nix-command flakes
+EOF
+
 # Set up home-manager
 mkdir -p ~/.config
 mkdir -p ~/Code
