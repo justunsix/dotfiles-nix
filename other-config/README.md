@@ -13,7 +13,7 @@ It uses a dotfiles repository like [my dotfiles](https://github.com/justunsix/do
 
 If behind a proxy and trying to install nix, try these instructions:
 
-Before running the nix install, set these in your shell. In the same shell, run the nix install script. The curl calls in the nix install script needs to be edited with `curl --proxy "http://proxy:port`
+Before running the nix install, set these in your shell. 
 
 ```sh
 git config --global https.proxy https://proxy:port
@@ -26,3 +26,5 @@ export https_proxy=proxy:port
 export ftp_proxy=proxy:port
 export CURL_NIX_FLAGS=proxy:port
 ```
+
+In the same shell, get the nix install script and edit the curl calls in the nix install script to use a proxy like `curl --proxy "http://proxy:port`
