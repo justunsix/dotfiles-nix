@@ -1,7 +1,7 @@
 # Install git and nix for your *nix operating system
 # Install nix
 sudo install -d -m755 -o $(id -u) -g $(id -g) /nix
-curl -L https://nixos.org/nix/install | sh
+sh <(curl -L https://nixos.org/nix/install) --no-daemon
 
 # Enable nix flakes
 mkdir -p ~/.config/nix
