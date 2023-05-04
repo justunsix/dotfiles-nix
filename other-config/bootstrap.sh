@@ -16,7 +16,7 @@ cd ~/Code
 # Assume git is install on your system
 git clone https://github.com/justunsix/dotfiles-nix.git
 cd ~/.config
-ln -s -f "~/Code/dotfiles-nix" home-manager
+ln -s -f "$HOME/Code/dotfiles-nix" home-manager
 cd home-manager
 
 # Install the configuration and programs from flake.nix
