@@ -5,18 +5,31 @@
   programs.home-manager.enable = true;
 
   home.packages = [
+    # System and Files
     pkgs.git
     pkgs.bashInteractive # unsure why required?
     pkgs.topgrade
     pkgs.curl
     pkgs.htop
     pkgs.keychain
+    pkgs.stow
+    pkgs.ranger
+    # Fonts
+    pkgs.source-code-pro
+    pkgs.jetbrains-mono
+    # DevOps
     pkgs.emacs
+    pkgs.nodejs
+    pkgs.hunspell
+    # Browser
+    pkgs.firefox
   ];
 
-  #fonts.fontconfig = {
-  # enable = true;
-  #};
+  # Pick up fonts 
+  fonts.fontconfig = {
+   enable = true;
+  };
+
 
   programs.bash = {    
     enable = true;    
