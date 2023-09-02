@@ -118,9 +118,15 @@ if ! shopt -oq posix; then
     fi
 fi
 
-# ---------------------------------------------------
-# ---------------------------------------------------
+########################################
+########################################
 # --- My Customizations ---
+
+################################
+#
+# * Variables & Environment Variables
+#
+################################
 
 # Source overlay variables, aliases
 if [ -f "$HOME/.env" ]; then
@@ -159,32 +165,87 @@ fi
 # Moved to .bash_profile, as Ubuntu Gnome reads from there
 # export QT_QPA_PLATFORMTHEME="qt5ct"
 
-export PATH="$HOME/usr/bin/phantomjs-2.1.1-linux-x86_64/bin:$HOME/.nix-profile/bin/:$HOME/usr/bin/todotxt-cli:$HOME/.local/bin:$HOME/usr/bin:$PATH"
+################################
+# * PATH
 
-if [ "$isWSLUbuntu" = "true" ]; then
-    export PATH="$HOME/Code/dotfiles/usr/bin:$PATH"
+if [ -d "$HOME/usr/bin/phantomjs-2.1.1-linux-x86_64/bin" ] ;
+  then PATH="$HOME/usr/bin/phantomjs-2.1.1-linux-x86_64/bin:$PATH"
 fi
 
-export EMACS_SERVER_FILE="~/.emacs.d/server/server"
+if [ -d "$HOME/.nix-profile/bin" ] ;
+  then PATH="$HOME/.nix-profile/bin:$PATH"
+fi
+
+if [ -d "$HOME/usr/bin/todotxt-cli" ] ;
+  then PATH="$HOME/usr/bin/todotxt-cli:$PATH"
+fi
+
+if [ -d "$HOME/usr/bin" ] ;
+  then PATH="$HOME/usr/bin:$PATH"
+fi
+
+if [ "$isWSLUbuntu" = "true" ] ;
+    then PATH="$HOME/Code/dotfiles/usr/bin:$PATH"
+fi
+
+export PATH="$HOME/.local/bin::$PATH"
+
+################################
+# * Other Variables
+
 # Set EDITOR environment variable
 export EDITOR="vim"
+
+# "less" as manpager
+# other options could be bat, vim, nvim
+# examples at https://gitlab.com/dwt1/dotfiles/-/blob/master/.bashrc
+export MANPAGER="less"
+
+export EMACS_SERVER_FILE="$HOME/.emacs.d/server/server"
+
+
+# ** XDG
+# Check if they are empty and set them to default values
+
+if [ -z "$XDG_CONFIG_HOME" ] ; then
+    export XDG_CONFIG_HOME="$HOME/.config"
+fi
+if [ -z "$XDG_DATA_HOME" ] ; then
+    export XDG_DATA_HOME="$HOME/.local/share"
+fi
+if [ -z "$XDG_CACHE_HOME" ] ; then
+    export XDG_CACHE_HOME="$HOME/.cache"
+fi
+
+################################
+#
+# Programs
+#
+################################
+
+# Check programs are installed before configuring them.
+# Conditionals allow reusing this .bashrc on multiple systems
+
+## cat(1) clone with syntax highlighting and git integration
+# alias bat="batcat"
 
 # Node Version Manager (NVM)
 export NVM_DIR="$HOME/.nvm"
 
-# If NVM is installed, load it
-if command -v nvm >/dev/null; then
+# If NVM binary exists, load it
+if [ -f "$NVM_DIR/nvm.sh" ]; then
     # This loads nvm
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
     # This loads nvm bash_completion
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-    # nvm alias default 18.13.0
+
+    # Use default node version is none is set
+    if [ -f .nvmrc ]; then
+        nvm use
+    else
+        nvm use default
+    fi
 fi
-
-# Programs
-
-## cat(1) clone with syntax highlighting and git integration
-# alias bat="batcat"
 
 ## Emacs
 # Ensure in emacs (start-server) is done in init or on emacs command line
@@ -206,7 +267,7 @@ if command -v fzf >/dev/null; then
         # Ubuntu Debian per /usr/share/doc/fzf/README.Debian
         source /usr/share/doc/fzf/examples/key-bindings.bash
         # Should be unnecessary in later apt fzf versions
-        source ~/Code/External/fzf/shell/completion.bash
+        source "$HOME/Code/External/fzf/shell/completion.bash"
         # Change fzf find files command from default find to fd-find
         # fd-find is called fdfind on Ubuntu due to a file name clash
         # per apt-cache show fd-find
@@ -230,10 +291,13 @@ fi
 # Work in terminal and non terminal environments
 # https://wiki.archlinux.org/title/SSH_keys#Keychain
 # see man keychain for other shells and additional certificates
-
-# If i3 is running or WSL Ubuntu, run keychain
-if pgrep -x "i3" >/dev/null || [ "$isWSLUbuntu" = "true" ] ; then
-    eval $(keychain --eval --quiet id_ed25519 id_rsa)
+if command -v keychain >/dev/null; then
+    # If i3 is running or WSL Ubuntu, run keychain
+    if pgrep -x "i3" >/dev/null || [ "$isWSLUbuntu" = "true" ]; then
+        eval "$(keychain --eval --quiet id_ed25519)"
+        # optionally include id_rsa
+        # eval $(keychain --eval --quiet id_ed25519)
+    fi
 fi
 
 ## oc - Openshift CLI
@@ -272,5 +336,91 @@ if command -v broot &>/dev/null; then
     source "$HOME/.config/broot/launcher/bash/br"
 fi
 
-# Go to fish shell on non-login shells
-fish
+## conda - package manager
+## Detect conda-shell installed by Nix
+if command -v conda-shell >/dev/null; then
+    # >>> conda initialize >>>
+    # !! Contents within this block are managed by 'conda init' !!
+    __conda_setup="$('$HOME/.conda/bin/conda' 'shell.bash' 'hook' 2>/dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
+    else
+        if [ -f "$HOME/.conda/etc/profile.d/conda.sh" ]; then
+            . "$HOME/.conda/etc/profile.d/conda.sh"
+        else
+            export PATH="$HOME/.conda/bin:$PATH"
+        fi
+    fi
+    unset __conda_setup
+fi
+# <<< conda initialize <<<
+
+################################
+#
+# Functions
+#
+################################
+
+
+# ** Functions from https://gitlab.com/dwt1/dotfiles/-/blob/master/.bashrc
+
+### ARCHIVE EXTRACTION
+# From
+# usage: ex <file>
+ex ()
+{
+  if [ -f "$1" ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf "$1"   ;;
+      *.tar.gz)    tar xzf "$1"   ;;
+      *.bz2)       bunzip2 "$1"   ;;
+      *.rar)       unrar x "$1"   ;;
+      *.gz)        gunzip "$1"    ;;
+      *.tar)       tar xf "$1"    ;;
+      *.tbz2)      tar xjf "$1"   ;;
+      *.tgz)       tar xzf "$1"   ;;
+      *.zip)       unzip "$1"     ;;
+      *.Z)         uncompress "$1";;
+      *.7z)        7z x "$1"      ;;
+      *.deb)       ar x "$1"      ;;
+      *.tar.xz)    tar xf "$1"    ;;
+      *.tar.zst)   unzstd "$1"    ;;
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
+### navigation with cd
+### move up in directories
+up () {
+  local d=""
+  local limit="$1"
+
+  # Default to limit of 1
+  if [ -z "$limit" ] || [ "$limit" -le 0 ]; then
+    limit=1
+  fi
+
+  for ((i=1;i<=limit;i++)); do
+    d="../$d"
+  done
+
+  # perform cd. Show error if cd fails
+  if ! cd "$d"; then
+    echo "Couldn't go up $limit dirs.";
+  fi
+}
+
+
+################################
+#
+# Start Up
+#
+################################
+
+if command -v fish >/dev/null; then
+    # Go to fish shell on non-login shells
+    fish
+fi
