@@ -19,10 +19,10 @@ EOF
 
 # Set up home-manager
 mkdir -p ~/.config
-# Clone repository into `~/.config/home-manager`
-cd ~/.config
+# or my preferred location `~/Code/dotfiles-nix` and then symlink
 # Assume git is install on your system
-git clone https://github.com/justunsix/dotfiles-nix.git ~/.config/home-manager
+git clone https://github.com/justunsix/dotfiles-nix.git ~/Code/dotfiles-nix
+ln -s ~/Code/dotfiles-nix ~/.config/home-manager
 cd ~/.config/home-manager
 # Install the configuration and programs from flake.nix
 nix run . switch
@@ -33,6 +33,7 @@ home-manager switch -b bak
 ### Update
 
 ```sh
+cd ~/.config/home-manager
 nix flake update
 home-manager switch -b bak
 # or use topgrade installed by home-manager
