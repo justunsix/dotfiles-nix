@@ -4,30 +4,30 @@
   home.stateVersion = "22.11";
   programs.home-manager.enable = true;
 
-  home.packages = [
+  home.packages = with pkgs; [
     # System and Files
-    pkgs.git
-    pkgs.bashInteractive # unsure why required?
-    pkgs.topgrade
-    pkgs.curl
-    pkgs.htop
-    pkgs.keychain
-    pkgs.stow
-    pkgs.ranger
+    git
+    bashInteractive # unsure why required?
+    topgrade
+    curl
+    htop
+    keychain
+    stow
+    ranger
     # Fonts
-    pkgs.source-code-pro
-    pkgs.jetbrains-mono
+    source-code-pro
+    jetbrains-mono
     # DevOps
-    pkgs.emacs
+    emacs
     ## Emacs package requirements
-    pkgs.nodejs
-    pkgs.pandoc
-    pkgs.ripgrep
+    nodejs
+    pandoc
+    ripgrep
     ## Spelling
-    pkgs.hunspell
-    pkgs.hunspellDicts.en_CA
+    hunspell
+    hunspellDicts.en_CA
     # Browser
-    pkgs.firefox
+    firefox
   ];
 
   # Pick up fonts 
