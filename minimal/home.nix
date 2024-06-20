@@ -107,6 +107,9 @@
   # Let home-manager manage shellsV
   programs.nushell = {
     enable = true;
+    shellAliases = {
+      lg = "lazygit";
+    };
   };
 
   # Atuin
