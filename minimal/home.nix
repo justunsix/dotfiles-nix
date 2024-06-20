@@ -42,6 +42,7 @@
     carapace
     starship
     zoxide
+    broot
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -114,6 +115,13 @@
 
   # Atuin
   programs.atuin = {
+    enable = true;
+    enableBashIntegration = true;
+    enableNushellIntegration = true;
+  };
+  
+  # Broot
+  programs.broot = {
     enable = true;
     enableBashIntegration = true;
     enableNushellIntegration = true;
