@@ -17,20 +17,20 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
+  home.packages = with pkgs; [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
-    pkgs.helix
-    pkgs.keepassxc
-    pkgs.freetube
-    pkgs.git
-    pkgs.nushell        
+    helix
+    keepassxc
+    freetube
+    git
+    nushell
     # pkgs.peazip
-    pkgs.p7zip
-    pkgs.emacs
-    pkgs.topgrade
-    pkgs.gitui    
+    p7zip
+    emacs
+    topgrade
+    lazygit
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
