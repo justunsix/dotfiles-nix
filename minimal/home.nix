@@ -21,19 +21,27 @@
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
-    helix
-    freetube
-    git
+
+    # Files and System
     # pkgs.peazip
     p7zip
-    emacs
     topgrade
+
+    # Web
+    freetube
+
+    # DevOps
+    helix
+    git
+    emacs
+
     # Shell
     nushell
     lazygit
     atuin
     carapace
     starship
+    zoxide
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -118,6 +126,26 @@
   programs.starship = {
     enable = true;
     enableNushellIntegration = true;
+  };
+
+  # Zoxide
+  programs.zoxide = {
+    enable = true;
+    enableBashIntegration = true;
+    enableNushellIntegration = true;
+  };
+
+  # topgrade
+  programs.topgrade = {
+    enable = true;
+    settings = {
+      # Include misc to avoid error
+      misc = { };
+      git = {
+        max_concurrency = 5;
+        repos = ["~/Code/*"];
+      };
+    };
   };
 
   # Temporarily disable version check differences
