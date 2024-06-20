@@ -22,15 +22,18 @@
     # # "Hello, world!" when run.
     # pkgs.hello
     helix
-    keepassxc
     freetube
     git
-    nushell
     # pkgs.peazip
     p7zip
     emacs
     topgrade
+    # Shell
+    nushell
     lazygit
+    atuin
+    carapace
+    starship
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -83,4 +86,41 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  ##########################
+  # Programs Configuration #
+  ##########################
+
+  # Let home-manager manage shells
+  programs.bash = {
+    enable = true;
+  };
+
+  # Let home-manager manage shellsV
+  programs.nushell = {
+    enable = true;
+  };
+
+  # Atuin
+  programs.atuin = {
+    enable = true;
+    enableBashIntegration = true;
+    enableNushellIntegration = true;
+  };
+
+  # Carapace
+  programs.carapace = {
+    enable = true;
+    enableNushellIntegration = true;
+  };
+
+  # Starship
+  programs.starship = {
+    enable = true;
+    enableNushellIntegration = true;
+  };
+
+  # Temporarily disable version check differences
+  home.enableNixpkgsReleaseCheck = false;
+
 }
