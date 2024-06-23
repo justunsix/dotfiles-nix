@@ -34,6 +34,7 @@
     helix
     git
     emacs
+    gfold
 
     # Shell
     nushell
@@ -110,6 +111,7 @@
     enable = true;
     shellAliases = {
       lg = "lazygit";
+      jgt= "bash -c 'gfold ~/Code -c always -d classic'";
     };
   };
 
@@ -137,6 +139,13 @@
   programs.starship = {
     enable = true;
     enableNushellIntegration = true;
+    settings = {
+      # format = "$all";
+      shell = {
+        format = "[$indicator ](bold cyan) ";
+        disabled = false;
+      };
+    };
   };
 
   # Zoxide
