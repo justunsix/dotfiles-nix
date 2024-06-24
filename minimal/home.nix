@@ -33,7 +33,7 @@
     # DevOps
     helix
     git
-    emacs
+    neovim
     gfold
 
     # Shell
