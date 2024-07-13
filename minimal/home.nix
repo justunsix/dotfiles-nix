@@ -41,13 +41,14 @@
 
     # Shell
     nushell
-    ## lg is optional Neovim framework dependency
-    lazygit
     atuin
     carapace
     starship
     zoxide
     broot
+    ## lg, make are optional Neovim framework dependency
+    lazygit
+    gnumake
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
