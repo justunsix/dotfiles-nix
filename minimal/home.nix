@@ -33,11 +33,15 @@
     # DevOps
     helix
     git
-    neovim
     gfold
+    neovim
+    ## Optional Neovim framework dependencies
+    ripgrep
+    fd
 
     # Shell
     nushell
+    ## lg is optional Neovim framework dependency
     lazygit
     atuin
     carapace
