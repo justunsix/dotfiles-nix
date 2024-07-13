@@ -35,6 +35,8 @@
     git
     gfold
     neovim
+    ## Required Neovim framework dependencies
+    gcc
     ## Optional Neovim framework dependencies
     ripgrep
     fd
