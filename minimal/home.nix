@@ -102,6 +102,12 @@
     EDITOR = "hx";
   };
 
+  # Add directories to your PATH
+  # but bug for now https://github.com/nix-community/home-manager/issues/3417
+  home.sessionPath = [
+    "$HOME/usr/bin"
+  ];
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
@@ -114,7 +120,7 @@
     enable = true;
   };
 
-  # Let home-manager manage shellsV
+  # Let home-manager manage shells
   programs.nushell = {
     enable = true;
     shellAliases = {
