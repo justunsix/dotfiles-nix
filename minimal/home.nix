@@ -41,6 +41,7 @@
     ## Optional Neovim framework dependencies
     ripgrep
     fd
+    nodejs_20
 
     # Shell
     nushell
