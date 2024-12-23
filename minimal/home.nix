@@ -38,6 +38,7 @@
     ## Required Neovim framework dependencies
     gcc
     xsel
+    fzf
     ## Optional Neovim framework dependencies
     ripgrep
     fd
