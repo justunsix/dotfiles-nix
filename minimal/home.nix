@@ -35,6 +35,7 @@
     git
     gfold
     neovim
+    pandoc
     ## Required Neovim framework dependencies
     gcc
     xsel
