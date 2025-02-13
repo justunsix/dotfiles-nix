@@ -72,14 +72,13 @@
 
   # Allow fontconfig to discover fonts and configurations installed through home.packages and nix-env
   # per https://github.com/nix-community/home-manager/issues/605
-  fonts.fontconfig = {
-    enable = true;
-  };
+  fonts.fontconfig = { enable = true; };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    ".config/helix/config.toml".source = ~/Code/dotfiles/.config/helix/config.toml;
+    ".config/helix/config.toml".source =
+      ~/Code/dotfiles/.config/helix/config.toml;
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
@@ -108,15 +107,11 @@
   #
   #  /etc/profiles/per-user/justin/etc/profile.d/hm-session-vars.sh
   #
-  home.sessionVariables = {
-    EDITOR = "hx";
-  };
+  home.sessionVariables = { EDITOR = "hx"; };
 
   # Add directories to your PATH
   # but bug for now https://github.com/nix-community/home-manager/issues/3417
-  home.sessionPath = [
-    "$HOME/usr/bin"
-  ];
+  home.sessionPath = [ "$HOME/usr/bin" ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -126,18 +121,19 @@
   ##########################
 
   # Let home-manager manage shells
-  programs.bash = {
-    enable = true;
-  };
+  programs.bash = { enable = true; };
 
   # Let home-manager manage shells
   programs.nushell = {
     enable = true;
     shellAliases = {
       lg = "lazygit";
-      jgt= "bash -c 'gfold ~/Code -c always -d classic'";
+      jgt = "bash -c 'gfold ~/Code -c always -d classic'";
     };
   };
+
+  # Globally enable shell integration for all supported shells
+  home.shell.enableShellIntegration = true;
 
   # Atuin
   programs.atuin = {
@@ -145,7 +141,7 @@
     enableBashIntegration = true;
     enableNushellIntegration = true;
   };
-  
+
   # Broot
   programs.broot = {
     enable = true;
@@ -187,7 +183,7 @@
       misc = { };
       git = {
         max_concurrency = 5;
-        repos = ["~/Code/*"];
+        repos = [ "~/Code/*" ];
       };
     };
   };
