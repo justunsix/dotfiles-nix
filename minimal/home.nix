@@ -80,6 +80,8 @@
   home.file = {
     ".config/helix/config.toml".source =
       ~/Code/dotfiles/.config/helix/config.toml;
+     ".config/helix/languages.toml".source =
+      ~/Code/dotfiles/.config/helix/languages.toml;
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
