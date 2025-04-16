@@ -56,6 +56,9 @@
     ## lg, make are optional Neovim framework dependency
     lazygit
     gnumake
+    # Fonts
+    ## Per NixOS PR 362769
+    nerd-fonts.jetbrains-mono
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
