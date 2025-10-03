@@ -36,6 +36,8 @@
     gfold
     neovim
     pandoc
+    ## Python for scripts
+    uv
     ## Required Neovim framework dependencies
     gcc
     xsel
@@ -117,7 +119,7 @@
 
   # Add directories to your PATH
   # but bug for now https://github.com/nix-community/home-manager/issues/3417
-  home.sessionPath = [ "$HOME/usr/bin" ];
+  home.sessionPath = [ "$HOME/usr/bin" "$HOME/.local/bin"];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -139,6 +141,7 @@
       jgt = "bash -c 'gfold ~/Code -c always -d classic'";
       ff = "^$env.EDITOR (fd --hidden | fzf)";
     };
+    # Extra functions
     extraConfig = "# Get Makefile tasks in directory, pick and run task
 def fm [] {
     # Check if fzf is installed
