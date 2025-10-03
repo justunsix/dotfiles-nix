@@ -134,8 +134,44 @@
     enable = true;
     shellAliases = {
       lg = "lazygit";
+      ggs = "git status";
+      ggd = "git diff";
       jgt = "bash -c 'gfold ~/Code -c always -d classic'";
+      ff = "^$env.EDITOR (fd --hidden | fzf)";
     };
+    extraConfig = "# Get Makefile tasks in directory, pick and run task
+def fm [] {
+    # Check if fzf is installed
+    if (which fzf | is-empty) {
+        print 'fzf is not installed. Please install it to use this script.'
+        exit 1
+    }
+
+    # Check if Makefile exists
+    if not (['Makefile'] | path exists | get 0) {
+        print 'No Makefile found in the current directory.'
+        exit 1
+    }
+
+    # Extract make targets with `##` help comments (like `target: ## description`)
+    let targets = open Makefile
+        | lines
+        | where ($it =~ '^[a-zA-Z0-9][^:]*:.*##')
+        | each {|line| $line | split row ':' | get 0 | str trim }
+        | uniq
+
+    # Pass targets to fzf for selection
+    let selected_target = ($targets | to text | fzf --height 40% --reverse --inline-info --prompt 'Select a target: ')
+
+    # Run make with the selected target
+    if not ($selected_target | is-empty ) {
+        print $'Executing make ($selected_target)...'
+        ^make $selected_target
+    } else {
+        print 'No target selected.'
+    }
+    
+}";
   };
 
   # Globally enable shell integration for all supported shells
