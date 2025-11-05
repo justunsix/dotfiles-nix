@@ -140,7 +140,8 @@
       ggd = "git diff";
       gglrf = "topgrade --only git_repos";
       gglrs = "bash -c 'gfold ~/Code -c always -d classic'";
-      ff = "^$env.EDITOR (fd --hidden | fzf)";
+      ff = "^$env.EDITOR (fd --hidden --exclude .git | fzf)";
+      ggsc = "jgc";
     };
     # Extra functions
     extraConfig = "# Get Makefile tasks in directory, pick and run task
@@ -175,7 +176,18 @@ def fm [] {
         print 'No target selected.'
     }
     
-}";
+}
+# Stages, commits, and pushes Git changes with a provided commit message or autocommit message if no message is provided
+def jgc [
+  message = 'auto commit': string   # Commit message
+  ] {
+    # Commit with the provided message
+    git commit -am $message
+
+    # Push to the current branch
+    git push
+}"
+;
   };
 
   # Globally enable shell integration for all supported shells
