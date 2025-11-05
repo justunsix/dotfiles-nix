@@ -135,10 +135,11 @@
   programs.nushell = {
     enable = true;
     shellAliases = {
-      lg = "lazygit";
+      gg = "lazygit";
       ggs = "git status";
       ggd = "git diff";
-      jgt = "bash -c 'gfold ~/Code -c always -d classic'";
+      gglrf = "topgrade --only git_repos";
+      gglrs = "bash -c 'gfold ~/Code -c always -d classic'";
       ff = "^$env.EDITOR (fd --hidden | fzf)";
     };
     # Extra functions
