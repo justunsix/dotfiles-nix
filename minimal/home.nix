@@ -45,6 +45,8 @@
     ## Optional Neovim framework dependencies
     ripgrep
     fd
+    ### For integration with Neovim language support
+    tree-sitter
     ### NodeJS LTS as of 2025-03
     nodejs_22
 
