@@ -87,8 +87,13 @@
   home.file = {
     ".config/helix/config.toml".source =
       ~/Code/dotfiles/.config/helix/config.toml;
-     ".config/helix/languages.toml".source =
+    ".config/helix/languages.toml".source =
       ~/Code/dotfiles/.config/helix/languages.toml;
+    ".config/nushell/env.nu".source = ~/Code/dotfiles/.config/nushell/env.nu;
+    ".config/nushell/config.nu".source =
+      ~/Code/dotfiles/.config/nushell/config.nu;
+    ".config/nushell/config-nix.nu".source =
+      ~/Code/dotfiles/.config/nushell/config-nix.nu;
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
@@ -121,7 +126,7 @@
 
   # Add directories to your PATH
   # but bug for now https://github.com/nix-community/home-manager/issues/3417
-  home.sessionPath = [ "$HOME/usr/bin" "$HOME/.local/bin"];
+  home.sessionPath = [ "$HOME/usr/bin" "$HOME/.local/bin" ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -136,60 +141,60 @@
   # Let home-manager manage shells
   programs.nushell = {
     enable = true;
-    shellAliases = {
-      gg = "lazygit";
-      ggs = "git status";
-      ggd = "git diff";
-      gglrf = "topgrade --only git_repos";
-      gglrs = "bash -c 'gfold ~/Code -c always -d classic'";
-      ff = "^$env.EDITOR (fd --hidden --exclude .git | fzf)";
-      ggsc = "jgc";
-    };
-    # Extra functions
-    extraConfig = "# Get Makefile tasks in directory, pick and run task
-def fm [] {
-    # Check if fzf is installed
-    if (which fzf | is-empty) {
-        print 'fzf is not installed. Please install it to use this script.'
-        exit 1
-    }
+    # shellAliases = {
+    #   gg = "lazygit";
+    #   ggs = "git status";
+    #   ggd = "git diff";
+    #   gglrf = "topgrade --only git_repos";
+    #   gglrs = "bash -c 'gfold ~/Code -c always -d classic'";
+    #   ff = "^$env.EDITOR (fd --hidden --exclude .git | fzf)";
+    #   ggsc = "jgc";
+    # };
+    # # Extra functions
+    # extraConfig = ''
+    #   # Get Makefile tasks in directory, pick and run task
+    #   def fm [] {
+    #       # Check if fzf is installed
+    #       if (which fzf | is-empty) {
+    #           print 'fzf is not installed. Please install it to use this script.'
+    #           exit 1
+    #       }
 
-    # Check if Makefile exists
-    if not (['Makefile'] | path exists | get 0) {
-        print 'No Makefile found in the current directory.'
-        exit 1
-    }
+    #       # Check if Makefile exists
+    #       if not (['Makefile'] | path exists | get 0) {
+    #           print 'No Makefile found in the current directory.'
+    #           exit 1
+    #       }
 
-    # Extract make targets with `##` help comments (like `target: ## description`)
-    let targets = open Makefile
-        | lines
-        | where ($it =~ '^[a-zA-Z0-9][^:]*:.*##')
-        | each {|line| $line | split row ':' | get 0 | str trim }
-        | uniq
+    #       # Extract make targets with `##` help comments (like `target: ## description`)
+    #       let targets = open Makefile
+    #           | lines
+    #           | where ($it =~ '^[a-zA-Z0-9][^:]*:.*##')
+    #           | each {|line| $line | split row ':' | get 0 | str trim }
+    #           | uniq
 
-    # Pass targets to fzf for selection
-    let selected_target = ($targets | to text | fzf --height 40% --reverse --inline-info --prompt 'Select a target: ')
+    #       # Pass targets to fzf for selection
+    #       let selected_target = ($targets | to text | fzf --height 40% --reverse --inline-info --prompt 'Select a target: ')
 
-    # Run make with the selected target
-    if not ($selected_target | is-empty ) {
-        print $'Executing make ($selected_target)...'
-        ^make $selected_target
-    } else {
-        print 'No target selected.'
-    }
-    
-}
-# Stages, commits, and pushes Git changes with a provided commit message or autocommit message if no message is provided
-def jgc [
-  message = 'auto commit': string   # Commit message
-  ] {
-    # Commit with the provided message
-    git commit -am $message
+    #       # Run make with the selected target
+    #       if not ($selected_target | is-empty ) {
+    #           print $'Executing make ($selected_target)...'
+    #           ^make $selected_target
+    #       } else {
+    #           print 'No target selected.'
+    #       }
 
-    # Push to the current branch
-    git push
-}"
-;
+    #   }
+    #   # Stages, commits, and pushes Git changes with a provided commit message or autocommit message if no message is provided
+    #   def jgc [
+    #     message = 'auto commit': string   # Commit message
+    #     ] {
+    #       # Commit with the provided message
+    #       git commit -am $message
+
+    #       # Push to the current branch
+    #       git push
+    #   }'';
   };
 
   # Globally enable shell integration for all supported shells
