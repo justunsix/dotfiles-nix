@@ -89,7 +89,7 @@
       ~/Code/dotfiles/.config/helix/config.toml;
     ".config/helix/languages.toml".source =
       ~/Code/dotfiles/.config/helix/languages.toml;
-    ".config/nushell/env.nu".source = ~/Code/dotfiles/.config/nushell/env.nu;
+#    ".config/nushell/env.nu".source = ~/Code/dotfiles/.config/nushell/env.nu;
 #    ".config/nushell/config.nu".source =
 #      ~/Code/dotfiles/.config/nushell/config.nu;
 #    ".config/nushell/config-nix.nu".source =
