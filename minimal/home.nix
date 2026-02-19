@@ -36,13 +36,6 @@
     gfold
     neovim
     pandoc
-    ## Nix
-    ### Nix LSP
-    nil
-    ### Nix formatter
-    nixpkgs-fmt
-    ## Python for scripts
-    uv
     ## Required Neovim framework dependencies
     gcc
     xsel
@@ -50,10 +43,18 @@
     ## Optional Neovim framework dependencies
     ripgrep
     fd
+    ## Nix
+    ### Nix LSP
+    nil
+    ### Nix formatter
+    nixpkgs-fmt
+    ## Python for scripts
+    uv
     ### For integration with Neovim language support
     tree-sitter
-    ### NodeJS LTS as of 2025-03
-    nodejs_22
+    ## Node
+    ## alias for LTS version configured in all-packages per https://nixos.wiki/wiki/Node.js
+    nodejs
 
     # Shell
     nushell
@@ -162,6 +163,7 @@
       gglrf = "topgrade --only git_repos";
       gglrs = "bash -c 'gfold ~/Code -c always -d classic'";
       ff = "^$env.EDITOR (fd --hidden --exclude .git | fzf)";
+      ffn = "nvim (fd --hidden --exclude .git | fzf)";
       ggsc = "jgc";
     };
     # Extra functions
