@@ -36,6 +36,11 @@
     gfold
     neovim
     pandoc
+    ## Nix
+    ### Nix LSP
+    nil
+    ### Nix formatter
+    nixpkgs-fmt
     ## Python for scripts
     uv
     ## Required Neovim framework dependencies
@@ -57,6 +62,7 @@
     starship
     zoxide
     broot
+    yazi
     ## lg, make are optional Neovim framework dependency
     lazygit
     gnumake
@@ -80,20 +86,20 @@
 
   # Allow fontconfig to discover fonts and configurations installed through home.packages and nix-env
   # per https://github.com/nix-community/home-manager/issues/605
-  fonts.fontconfig = { enable = true; };
+  fonts.fontconfig = {
+    enable = true;
+  };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    ".config/helix/config.toml".source =
-      ~/Code/dotfiles/.config/helix/config.toml;
-    ".config/helix/languages.toml".source =
-      ~/Code/dotfiles/.config/helix/languages.toml;
-#    ".config/nushell/env.nu".source = ~/Code/dotfiles/.config/nushell/env.nu;
-#    ".config/nushell/config.nu".source =
-#      ~/Code/dotfiles/.config/nushell/config.nu;
-#    ".config/nushell/config-nix.nu".source =
-#      ~/Code/dotfiles/.config/nushell/config-nix.nu;
+    ".config/helix/config.toml".source = ~/Code/dotfiles/.config/helix/config.toml;
+    ".config/helix/languages.toml".source = ~/Code/dotfiles/.config/helix/languages.toml;
+    #    ".config/nushell/env.nu".source = ~/Code/dotfiles/.config/nushell/env.nu;
+    #    ".config/nushell/config.nu".source =
+    #      ~/Code/dotfiles/.config/nushell/config.nu;
+    #    ".config/nushell/config-nix.nu".source =
+    #      ~/Code/dotfiles/.config/nushell/config-nix.nu;
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
@@ -122,11 +128,16 @@
   #
   #  /etc/profiles/per-user/justin/etc/profile.d/hm-session-vars.sh
   #
-  home.sessionVariables = { EDITOR = "hx"; };
+  home.sessionVariables = {
+    EDITOR = "hx";
+  };
 
   # Add directories to your PATH
   # but bug for now https://github.com/nix-community/home-manager/issues/3417
-  home.sessionPath = [ "$HOME/usr/bin" "$HOME/.local/bin" ];
+  home.sessionPath = [
+    "$HOME/usr/bin"
+    "$HOME/.local/bin"
+  ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -136,7 +147,9 @@
   ##########################
 
   # Let home-manager manage shells
-  programs.bash = { enable = true; };
+  programs.bash = {
+    enable = true;
+  };
 
   # Let home-manager manage shells
   programs.nushell = {
@@ -153,48 +166,66 @@
     };
     # Extra functions
     extraConfig = ''
-      # Get Makefile tasks in directory, pick and run task
-      def fm [] {
-          # Check if fzf is installed
-          if (which fzf | is-empty) {
-              print 'fzf is not installed. Please install it to use this script.'
-              exit 1
+          # Get Makefile tasks in directory, pick and run task
+          def fm [] {
+              # Check if fzf is installed
+              if (which fzf | is-empty) {
+                  print 'fzf is not installed. Please install it to use this script.'
+                  return
+              }
+
+              # Check if Makefile exists
+              if not (['Makefile'] | path exists | get 0) {
+                  print 'No Makefile found in the current directory.'
+                  return
+              }
+
+              # Extract make targets with `##` help comments (like `target: ## description`)
+              let targets = open Makefile
+                  | lines
+                  | where ($it =~ '^[a-zA-Z0-9][^:]*:.*##')
+                  | each {|line| $line | split row ':' | get 0 | str trim }
+                  | uniq
+
+              # Pass targets to fzf for selection
+              let selected_target = ($targets | to text | fzf --height 40% --reverse --inline-info --prompt 'Select a target: ')
+
+              # Run make with the selected target
+              if not ($selected_target | is-empty ) {
+                  print $'Executing make ($selected_target)...'
+                  ^make $selected_target
+              } else {
+                  print 'No target selected.'
+              }
+
+          }
+          # Stages, commits, and pushes Git changes with a provided commit message or autocommit message if no message is provided
+          def jgc [
+            message = 'auto commit': string   # Commit message
+            ] {
+              # Commit with the provided message
+              git commit -am $message
+
+              # Push to the current branch
+              git push
           }
 
-          # Check if Makefile exists
-          if not (['Makefile'] | path exists | get 0) {
-              print 'No Makefile found in the current directory.'
-              exit 1
-          }
+          # Search for string in files and open in editor
+          def fgrep [
+            stringToSearch = 'todo': string # Search term
+            --ext: string = "*", # Search on files with these extensions
+            --vim, # If it should open in neovim
+          ] {    
 
-          # Extract make targets with `##` help comments (like `target: ## description`)
-          let targets = open Makefile
-              | lines
-              | where ($it =~ '^[a-zA-Z0-9][^:]*:.*##')
-              | each {|line| $line | split row ':' | get 0 | str trim }
-              | uniq
-
-          # Pass targets to fzf for selection
-          let selected_target = ($targets | to text | fzf --height 40% --reverse --inline-info --prompt 'Select a target: ')
-
-          # Run make with the selected target
-          if not ($selected_target | is-empty ) {
-              print $'Executing make ($selected_target)...'
-              ^make $selected_target
+          # Search case insensitive with rg including hidden files except .git dir,
+          # and including extension in glob to search, then
+          # filter file list with fzf and get filename with cut
+          let $result = rg -i $stringToSearch --hidden -g'!.git' -g $"*.($ext)" | fzf | cut -d':' -f 1
+          if ($vim) {
+              nvim $result
           } else {
-              print 'No target selected.'
+              ^$env.EDITOR $result
           }
-
-      }
-      # Stages, commits, and pushes Git changes with a provided commit message or autocommit message if no message is provided
-      def jgc [
-        message = 'auto commit': string   # Commit message
-        ] {
-          # Commit with the provided message
-          git commit -am $message
-
-          # Push to the current branch
-          git push
       }'';
   };
 
@@ -232,6 +263,13 @@
         disabled = false;
       };
     };
+  };
+
+  # Yazi
+  programs.yazi = {
+    enable = true;
+    enableNushellIntegration = true;
+    shellWrapperName = "y";
   };
 
   # Zoxide
