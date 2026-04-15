@@ -47,7 +47,7 @@
     ### Nix LSP
     nil
     ### Nix formatter
-    nixpkgs-fmt
+    nixfmt
     ## Python for scripts
     uv
     ### For integration with Neovim language support
@@ -62,7 +62,6 @@
     carapace
     starship
     zoxide
-    broot
     yazi
     ## lg, make are optional Neovim framework dependency
     lazygit
@@ -236,13 +235,6 @@
 
   # Atuin
   programs.atuin = {
-    enable = true;
-    enableBashIntegration = true;
-    enableNushellIntegration = true;
-  };
-
-  # Broot
-  programs.broot = {
     enable = true;
     enableBashIntegration = true;
     enableNushellIntegration = true;
