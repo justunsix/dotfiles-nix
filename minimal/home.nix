@@ -23,12 +23,8 @@
     # pkgs.hello
 
     # Files and System
-    # pkgs.peazip
     p7zip
     topgrade
-
-    # Web
-    #     freetube
 
     # DevOps
     helix
@@ -63,7 +59,7 @@
     starship
     zoxide
     yazi
-    ## lg, make are optional Neovim framework dependency
+    ## lazygit, make are optional Neovim framework dependency
     lazygit
     gnumake
     # Fonts
