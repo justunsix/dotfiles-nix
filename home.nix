@@ -30,23 +30,22 @@
     firefox
   ];
 
-  # Pick up fonts 
+  # Pick up fonts
   fonts.fontconfig = {
-   enable = true;
+    enable = true;
   };
 
-
   programs.bash = {
-    enable = true;    
+    enable = true;
     initExtra = builtins.readFile ./.bashrc;
   };
 
-  programs.fzf = {   
-     enable = true;
-     # enableBashIntegration = true;
-     enableFishIntegration = true;
-  };  
- 
+  programs.fzf = {
+    enable = true;
+    # enableBashIntegration = true;
+    enableFishIntegration = true;
+  };
+
   # zoxide
   programs.zoxide = {
     enable = true;
@@ -63,10 +62,10 @@
   programs.fish = {
     enable = true;
     shellAliases = {
-      "ggs"="git status";
-      "jgc"="jt-gc.sh";
-      "jgs"="jt-gs.sh";
-      "jgt"="jt-gt.sh";
+      "ggs" = "git status";
+      "jgc" = "jt-gc.sh";
+      "jgs" = "jt-gs.sh";
+      "jgt" = "jt-gt.sh";
     };
   };
 
