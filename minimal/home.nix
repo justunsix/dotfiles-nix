@@ -66,6 +66,21 @@
     ## Per NixOS PR 362769
     nerd-fonts.jetbrains-mono
 
+    # Languages
+    ## Rust
+    ### Debugger for Rust / C / C++
+    lldb
+    ### Key components from rustup https://rust-lang.github.io/rustup-components-history/
+    #### Rust compiler, package and task management
+    rustc
+    cargo
+    #### Rust Linter
+    clippy
+    #### Rust LSP
+    rust-analyzer
+    #### Rust formatter
+    rustfmt
+
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
