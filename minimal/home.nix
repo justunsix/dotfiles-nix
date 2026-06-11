@@ -28,6 +28,7 @@
 
     # DevOps
     helix
+    emacs
     git
     gfold
     neovim
