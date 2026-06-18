@@ -17,6 +17,11 @@ let
 in
 
 {
+
+  imports = [
+    ./modules/graphical-programs.nix
+  ];
+
   home.username = "justin";
   home.homeDirectory = "/home/justin";
   home.stateVersion = "26.05";
@@ -213,36 +218,6 @@ in
 
     # Security
     sops
-
-    # ------------------------------------------------------------
-    # Graphical Applications Tested with Nix
-
-    # Browser
-    firefox
-
-    # Information Management
-    ## Library and Bibliography management
-    zotero
-
-    # Terminals
-    # wezterm
-    alacritty
-
-    # Graphics and Diagrams
-    # gimp
-    # inkscape
-    # drawio
-
-    # Files
-    # fsearch
-    # Security
-    keepassxc
-    # Email
-    # thunderbird
-    # RSS
-    # fluent-reader
-    # Video
-    freetube
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
