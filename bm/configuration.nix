@@ -71,8 +71,13 @@
     description = "justin";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      keepassxc
+      # Files
       lazygit
+      # Security
+      keepassxc
+      # DevOps
+      ## Editors
+      emacs
     ];
   };
 
