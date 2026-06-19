@@ -14,6 +14,8 @@ let
     yazi = "yazi";
     zellij = "zellij";
     git = "git";
+    doom = "doom";
+    copyq = "copyq";
     "starship.toml" = "starship.toml";
     "gfold.toml" = "gfold.toml";
   };
@@ -236,4 +238,5 @@ in
     #   echo "Hello, ${config.home.username}!"
     # '')
   ];
+
 }

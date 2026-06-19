@@ -13,6 +13,9 @@
     # Browser
     firefox
 
+    # Clipboard manager
+    copyq
+
     # Information Management
     ## Library and Bibliography management
     zotero
