@@ -31,7 +31,7 @@
   i18n.defaultLocale = "en_CA.UTF-8";
 
   # Optionally (BEWARE: requires a different format with the added /UTF-8)
-  i18n.extraLocales = [ "en_US.UTF-8" ];
+  i18n.extraLocales = [ "en_US.UTF-8/UTF-8" ];
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
