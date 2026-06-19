@@ -240,4 +240,7 @@ in
     # '')
   ];
 
+  # Services
+  services.copyq.enable = true;
+
 }
