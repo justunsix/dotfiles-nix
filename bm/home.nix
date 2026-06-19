@@ -2,7 +2,7 @@
 
 let
   # Variables for dotfiles setup
-  dotfiles = "${config.home.homeDirectory}/Code/dotfiles-nix/bm";
+  dotfiles = "${config.home.homeDirectory}/Code/dotfiles/.config";
   create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
   configs = {
     nvim = "nvim";
@@ -13,6 +13,9 @@ let
     opencode = "opencode";
     yazi = "yazi";
     zellij = "zellij";
+    git = "git";
+    "starship.toml" = "starship.toml";
+    "gfold.toml" = "gfold.toml";
   };
 in
 
@@ -37,21 +40,18 @@ in
     recursive = true;
   }) configs;
 
-  home.file = {
-    ".config/starship.toml".source = ~/Code/dotfiles/.config/starship.toml;
-    ".config/gfold.toml".source = ~/Code/dotfiles/.config/gfold.toml;
-    ".config/git/config/git".source = ~/Code/dotfiles/.config/git;
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
+  # home.file = {
+  # # Building this configuration will create a copy of 'dotfiles/screenrc' in
+  # # the Nix store. Activating the configuration will then make '~/.screenrc' a
+  # # symlink to the Nix store copy.
+  # ".screenrc".source = dotfiles/screenrc;
 
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
-  };
+  # # You can also set the file content immediately.
+  # ".gradle/gradle.properties".text = ''
+  #   org.gradle.console=verbose
+  #   org.gradle.daemon.idletimeout=3600000
+  #   '';
+  # };
 
   home.packages = with pkgs; [
 
@@ -116,6 +116,7 @@ in
     # DevOps
     mise
     ### Doom Emacs requirements
+    emacs
     #### fd also yazi dependency for file search
     fd
     ## Other Editors
