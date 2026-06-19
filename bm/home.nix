@@ -5,7 +5,7 @@ let
   dotfiles = "${config.home.homeDirectory}/Code/dotfiles/.config";
   create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
   configs = {
-    nvim = "nvim";
+    nvim-lazyvim = "nvim-lazyvim";
     alacritty = "alacritty";
     nushell = "nushell";
     lazygit = "lazygit";
