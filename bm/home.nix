@@ -104,6 +104,7 @@ in
 
     # Productivity and Tasks
     todo-txt-cli
+    gnumake
     # System and Monitors
     btop
     # Terminal
