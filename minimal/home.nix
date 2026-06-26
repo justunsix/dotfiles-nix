@@ -25,6 +25,7 @@
     # Files and System
     p7zip
     topgrade
+    television
 
     # DevOps
     helix
