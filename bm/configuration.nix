@@ -104,6 +104,7 @@
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
 
+  # Enable flakes https://nix.dev/concepts/flakes.html
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
