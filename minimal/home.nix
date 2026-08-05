@@ -53,6 +53,8 @@
     ## Node
     ## alias for LTS version configured in all-packages per https://nixos.wiki/wiki/Node.js
     nodejs
+    ### Faster, security permissions JS runtime
+    deno
 
     # Shell
     nushell
@@ -61,7 +63,9 @@
     starship
     zoxide
     yazi
-    ## lazygit, make are optional Neovim framework dependency
+    #### Video processing, yazi optional dependency for video thumbnails
+    ffmpeg_7-full
+    ## lazygit, make are optional Neovim LazyVim framework dependency
     lazygit
     gnumake
     # Fonts
