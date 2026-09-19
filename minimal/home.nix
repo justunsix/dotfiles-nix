@@ -63,6 +63,7 @@
     starship
     zoxide
     yazi
+    tealdeer
     #### Video processing, yazi optional dependency for video thumbnails
     ffmpeg_7-full
     ## lazygit, make are optional Neovim LazyVim framework dependency
